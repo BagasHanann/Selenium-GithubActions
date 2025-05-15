@@ -12,7 +12,7 @@ permissions:
 
 jobs:
   build-and-deploy:
-    runs-on: ubuntu-22.04  # Lebih stabil dari 24.04
+    runs-on: ubuntu-latest
 
     steps:
       - name: Checkout repository
@@ -27,19 +27,7 @@ jobs:
       - name: Build and run tests
         run: mvn clean verify
 
-      - name: Upload artifact (manual)
-        uses: actions/upload-pages-artifact@v3
-        with:
-          name: github-pages
-          path: ./target/cucumber-reports
-
-      - name: Upload GitHub Pages artifact
-        uses: actions/upload-pages-artifact@v1
-        with:
-          path: ./target/cucumber-reports
-
-      - name: Configure GitHub Pages
-        uses: actions/configure-pages@v3
-
       - name: Deploy to GitHub Pages
         uses: actions/deploy-pages@v1
+        with:
+          path: ./target/cucumber-reports
