@@ -27,8 +27,15 @@ jobs:
       - name: Build and run tests
         run: mvn clean verify
 
+      - name: Configure GitHub Pages
+        uses: actions/configure-pages@v3
+
+      - name: Upload artifact to GitHub Pages
+        uses: actions/upload-pages-artifact@v1
+        with:
+          path: ./target/cucumber-reports
+
       - name: Deploy to GitHub Pages
         uses: actions/deploy-pages@v1
         with:
-          token: ${{ secrets.GH_PAGES_TOKEN }}
-          path: ./target/cucumber-reports
+          token: ${{ secrets.GITHUB_TOKEN }}
